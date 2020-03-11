@@ -3,7 +3,7 @@ import random
 
 #file i/o functions for historical results
 def load_results():
-    text_file = open("history.txt", "r")
+    text_file = open("./history.txt", "r")
     history = text_file.read().split(",")
     text_file.close()
     return history
@@ -77,3 +77,5 @@ while not user == 9:
 
 # #game over, save results
 save_results(wins, ties, losses)
+
+

@@ -1,4 +1,6 @@
 from room import Room
+from player import Player
+import textwrap
 
 # Declare all the rooms
 
@@ -24,14 +26,21 @@ earlier adventurers. The only exit is to the south."""),
 
 # Link rooms together
 
-room['outside'].n_to = room['foyer']
-room['foyer'].s_to = room['outside']
-room['foyer'].n_to = room['overlook']
-room['foyer'].e_to = room['narrow']
-room['overlook'].s_to = room['foyer']
-room['narrow'].w_to = room['foyer']
-room['narrow'].n_to = room['treasure']
-room['treasure'].s_to = room['narrow']
+# room['outside'].n_to = room['foyer']
+# room['foyer'].s_to = room['outside']
+# room['foyer'].n_to = room['overlook']
+# room['foyer'].e_to = room['narrow']
+# room['overlook'].s_to = room['foyer']
+# room['narrow'].w_to = room['foyer']
+# room['narrow'].n_to = room['treasure']
+# room['treasure'].s_to = room['narrow']
+
+room_link = {room['outside']:{"n":room['foyer']},
+            room['foyer']:{"s":room['outside'],"n":room['overlook'],"e":room['narrow']},
+            room['overlook']:{"s":room['foyer']},
+            room['narrow']:{"w":room['foyer'],"n":room['treasure']},
+            room['treasure']:{"s":room['narrow']}}
+
 
 #
 # Main
@@ -49,3 +58,26 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+
+if __name__ == "__main__":
+
+    p1 = Player(room['outside'])
+    current_room = p1.current_room
+    while True:
+        current_room = current_room
+        print("\n Current Room Name: ",current_room.name,"\n")
+        print("\n Current Room Description: \n")
+        my_wrap = textwrap.TextWrapper(width = 40) 
+        wrap_list = my_wrap.wrap(text=current_room.description)
+        for line in wrap_list:
+            print(line)
+        print("\n")
+        new_direction = input("Where do you want to go? ").lower()
+        if new_direction == "q":
+            break 
+        else:
+            try:
+                current_room = room_link[current_room][new_direction]
+            except:
+                print(f"{current_room.name} is the furthest you can go in the {new_direction} direction. Try again!")
