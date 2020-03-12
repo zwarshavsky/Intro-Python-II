@@ -63,13 +63,11 @@ room_link = {room['outside']:{"n":room['foyer']},
 if __name__ == "__main__":
 
     p1 = Player(room['outside'])
-    current_room = p1.current_room
     while True:
-        current_room = current_room
-        print("\n Current Room Name: ",current_room.name,"\n")
+        print("\n Current Room Name: ",p1.current_room.name,"\n")
         print("\n Current Room Description: \n")
         my_wrap = textwrap.TextWrapper(width = 40) 
-        wrap_list = my_wrap.wrap(text=current_room.description)
+        wrap_list = my_wrap.wrap(text=p1.current_room.description)
         for line in wrap_list:
             print(line)
         print("\n")
@@ -78,6 +76,6 @@ if __name__ == "__main__":
             break 
         else:
             try:
-                current_room = room_link[current_room][new_direction]
+                p1.current_room = room_link[p1.current_room][new_direction]
             except:
-                print(f"{current_room.name} is the furthest you can go in the {new_direction} direction. Try again!")
+                print(f"{p1.current_room.name} is the furthest you can go in the {new_direction} direction. Try again!")
