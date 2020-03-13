@@ -1,19 +1,16 @@
 # Implement a class to hold room information. This should have name and
 # description attributes.
-
-
 class Room:
-    def __init__(self,name,description,items=[]):
+    def __init__(self, name, description):
         self.name = name
-        self.description = description 
-        self.items = items
+        self.description = description
         self.n_to = None
         self.s_to = None
         self.e_to = None
         self.w_to = None
     def __str__(self):
-        # return_string = "---------"
-        return_string = "\n\n"
+        return_string = "---------"
+        return_string += "\n\n"
         return_string += self.name
         return_string += "\n\n"
         return_string += self.description
@@ -31,17 +28,3 @@ class Room:
         if self.w_to:
             exits.append("w")
         return exits
-
-    def print_inventory(self):
-        print("---------")
-        print("The room contains the following:")
-        for index,item in enumerate(self.items): 
-            print(index)
-            print(item)
-            print("---------")
-
-    def add_items(self,item):
-        pass
-
-    def remove_item(self,item):
-        self.items.remove(item)
